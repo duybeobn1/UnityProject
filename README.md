@@ -1,1 +1,1 @@
-Ouvrir Assets/PolygonStarterPack/Scence/Demo.Unity pour lancer. 
+Ouvrir Assets/PolygonStarter/Scences/Demo.Unity pour lancer. 
