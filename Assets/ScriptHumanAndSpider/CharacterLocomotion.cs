@@ -10,7 +10,7 @@ public class CharacterLocomotion : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator>();    
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -18,9 +18,9 @@ public class CharacterLocomotion : MonoBehaviour
     {
         input.x = Input.GetAxis("Horizontal");
         input.y = Input.GetAxis("Vertical");
-
         animator.SetFloat("InputX", input.x);
         animator.SetFloat("InputY", input .y);
         
     }
+
 }

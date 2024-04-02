@@ -14,7 +14,6 @@ public class bodyController : MonoBehaviour
     Vector3 lastBodyUp;
     List<int> oppositeLeg = new List<int>();
     bool currentLeg = true;
-    float resetTimer = 0.5f;
 
     [Space(10)]
     [Header("GameObject Assignment")]
