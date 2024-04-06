@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentHealth <= 0 )
+        if (currentHealth <= 0)
         {
             Debug.Log("Die");
         }
@@ -32,6 +32,7 @@ public class PlayerHealth : MonoBehaviour
         if (collision.gameObject.CompareTag("Spider"))
 
         {
+            Debug.Log(currentHealth);
             TakeDamage(1);
         }
     }
