@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.UI;
 
 public class WormPiece
 {
@@ -38,9 +39,11 @@ public class WormBuilder : MonoBehaviour
     private Transform target; // The target object to orbit and shoot at
 
     private bool canShoot = true; // Control variable to manage shooting frequency
-    private int currentHealth;
-    public int maxHealth = 3000;
+    public int currentHealth;
+    public int maxHealth = 100;
 
+    public GameObject healthBarPrefab; // Reference to the health bar prefab
+    private GameObject healthBarInstance; // Instance of the health bar
     
 
     
@@ -49,6 +52,7 @@ public class WormBuilder : MonoBehaviour
     void Start()
     {
         // Start the coroutine for automatic shooting
+
 
         if (Application.isPlaying)
         {
@@ -59,6 +63,7 @@ public class WormBuilder : MonoBehaviour
 
             // Set the target to a predefined object
             SetTarget(GameObject.FindWithTag("Player").transform);
+            healthBarInstance = Instantiate(healthBarPrefab, transform.position + Vector3.up * 2f, Quaternion.identity, transform);
             currentHealth = maxHealth;
         }
 
@@ -87,6 +92,8 @@ public class WormBuilder : MonoBehaviour
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
+            Destroy(healthBarInstance);
+            ScoreManager.scoreCount += 100;
         }
     }
 

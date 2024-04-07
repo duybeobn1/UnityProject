@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public class HealthBarPlayer : MonoBehaviour
 {
 	public Slider healthSlider;
 	public Slider easeHealthSlider;
 	public float health;
 	private float lerpSpeed = 0.05f;
-	public simpleController creatureController;
+	public PlayerHealth creatureController;
 
 	
     // Start is called before the first frame update

@@ -14,6 +14,7 @@ public class RayCastWeapon : MonoBehaviour
         public TrailRenderer tracer;
     }
     public simpleController creatureController; // ICI
+    public WormBuilder wb; // boss
     public bool isFiring = false;
     public ParticleSystem[] muzzleFlash;
     public ParticleSystem hitEffect;
@@ -95,7 +96,12 @@ public class RayCastWeapon : MonoBehaviour
     {
         if (hitInfo.collider.CompareTag("Creature")) // Assurez-vous que la balise est correcte
         {
-            creatureController.takeDamage(10); // Appel à la méthode takeDamage() de simpleController
+            //creatureController.takeDamage(10); // Appel à la méthode takeDamage() de simpleController
+        }
+        
+        if (hitInfo.collider.CompareTag("Creature"))
+        {
+            wb.takeDamage(5); // Appel à la méthode takeDamage() de WormBuilder
         }
 
         hitEffect.transform.position = hitInfo.point;

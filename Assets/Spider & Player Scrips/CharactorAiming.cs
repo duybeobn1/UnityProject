@@ -35,12 +35,14 @@ public class CharactorAiming : MonoBehaviour
                 simpleController spiderController = hit.collider.GetComponent<simpleController>();
                 if (spiderController != null)
                 {
+                    Debug.Log("SPIDER HIT");
                     // Reduce spider's health
                     spiderController.takeDamage(10); // Assuming 1 damage per hit
                 }
                 WormBuilder boss = hit.collider.GetComponent<WormBuilder>();
                 if (boss != null)
                 {
+                    Debug.Log("OUI");
                     boss.takeDamage(1);
                 }
             }
@@ -49,6 +51,7 @@ public class CharactorAiming : MonoBehaviour
                 WormBuilder boss = hit.collider.GetComponent<WormBuilder>();
                 if (boss != null)
                 {
+                    Debug.Log("OUI2222");
                     boss.takeDamage(100);
                 }
                 simpleController spiderController = hit.collider.GetComponent<simpleController>();
