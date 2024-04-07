@@ -30,13 +30,36 @@ public class CharactorAiming : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit))
         {
-            // Check if the hit object has a simpleController script (i.e., it's the spider)
-            simpleController spiderController = hit.collider.GetComponent<simpleController>();
-            if (spiderController != null)
-            {
-                // Reduce spider's health
-                spiderController.takeDamage(15); // Assuming 1 damage per hit
+            if (ScoreManager.scoreCount < 5) { 
+                // Check if the hit object has a simpleController script (i.e., it's the spider)
+                simpleController spiderController = hit.collider.GetComponent<simpleController>();
+                if (spiderController != null)
+                {
+                    // Reduce spider's health
+                    spiderController.takeDamage(10); // Assuming 1 damage per hit
+                }
+                WormBuilder boss = hit.collider.GetComponent<WormBuilder>();
+                if (boss != null)
+                {
+                    boss.takeDamage(1);
+                }
             }
+            else 
+            {
+                WormBuilder boss = hit.collider.GetComponent<WormBuilder>();
+                if (boss != null)
+                {
+                    boss.takeDamage(100);
+                }
+                simpleController spiderController = hit.collider.GetComponent<simpleController>();
+
+                if (spiderController != null)
+                {
+                    // Reduce spider's health
+                    spiderController.takeDamage(100); // Assuming 1 damage per hit
+                }
+            }
+            
         }
     }
     private void LateUpdate()
@@ -63,9 +86,6 @@ public class CharactorAiming : MonoBehaviour
             weapon.UpdateFiring(Time.deltaTime);
         }
         weapon.UpdateBullet(Time.deltaTime);
-
-
-
 
     }
 }

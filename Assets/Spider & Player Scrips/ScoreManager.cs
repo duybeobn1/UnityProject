@@ -18,4 +18,9 @@ public class ScoreManager : MonoBehaviour
     {
         scoreText.text = "Score : " + Mathf.Round(scoreCount);
     }
+
+    public int getScore()
+    {
+        return scoreCount;
+    }
 }

@@ -24,7 +24,76 @@ public class WormBuilder : MonoBehaviour
 
     DampedTransform templateDamp;
     List<WormPiece> pieces = new List<WormPiece>();
+    public GameObject bulletPrefab; // The prefab of the bullet
+    public Transform firePoint; // The position where the bullet will be instantiated
+    public float bulletSpeed = 10f; // The speed of the bullet
+    public float fireRate = 1f; // The rate at which the object shoots (1 bullet per second)
+    public float moveSpeed = 1f; // The speed at which the object moves towards the target
 
+    [SerializeField] float orbitRadius = 5f; // Radius of the orbit around the target
+    [SerializeField] float minDistance = 2f; // Minimum distance to maintain from the target
+    [SerializeField] float orbitSpeed = 2f; // Speed of orbiting around the target
+    [SerializeField] float smoothRotation = 5f; // Smoothing factor for rotation
+
+    private Transform target; // The target object to orbit and shoot at
+
+    private bool canShoot = true; // Control variable to manage shooting frequency
+    private int currentHealth;
+    public int maxHealth = 3000;
+
+    
+
+    
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        // Start the coroutine for automatic shooting
+
+        if (Application.isPlaying)
+        {
+            templateDamp = (new GameObject("Damp")).AddComponent<DampedTransform>();
+            templateDamp.data.dampRotation = 0.7f;
+            templateDamp.data.maintainAim = true;
+            SetupWorm();
+
+            // Set the target to a predefined object
+            SetTarget(GameObject.FindWithTag("Player").transform);
+            currentHealth = maxHealth;
+        }
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Check if there's a target and move towards it
+        if (target != null)
+        {
+            if(ScoreManager.scoreCount >=5 )
+            {
+               StartCoroutine(ShootRoutine());
+
+            }
+            MoveAroundTarget();
+        }
+
+        // Ensure the boss always stays at a minimum height of 50f
+        if (transform.position.y < 30f)
+        {
+            transform.position = new Vector3(transform.position.x, 30f, transform.position.z);
+        }
+
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void takeDamage(int damage)
+    {
+        currentHealth -= damage;
+    }
     void OnEnable()
     {
 
@@ -55,51 +124,6 @@ public class WormBuilder : MonoBehaviour
 
             WormPiece newPiece = new WormPiece(obj, damp);
             pieces.Add(newPiece);
-        }
-    }
-
-    public GameObject bulletPrefab; // The prefab of the bullet
-    public Transform firePoint; // The position where the bullet will be instantiated
-    public float bulletSpeed = 10f; // The speed of the bullet
-    public float fireRate = 1f; // The rate at which the object shoots (1 bullet per second)
-    public float moveSpeed = 1f; // The speed at which the object moves towards the target
-
-    [SerializeField] float orbitRadius = 5f; // Radius of the orbit around the target
-    [SerializeField] float minDistance = 2f; // Minimum distance to maintain from the target
-    [SerializeField] float orbitSpeed = 2f; // Speed of orbiting around the target
-    [SerializeField] float smoothRotation = 5f; // Smoothing factor for rotation
-
-    private Transform target; // The target object to orbit and shoot at
-
-    private bool canShoot = true; // Control variable to manage shooting frequency
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        // Start the coroutine for automatic shooting
-
-        if (Application.isPlaying)
-        {
-            templateDamp = (new GameObject("Damp")).AddComponent<DampedTransform>();
-            templateDamp.data.dampRotation = 0.7f;
-            templateDamp.data.maintainAim = true;
-            SetupWorm();
-
-            // Set the target to a predefined object
-            SetTarget(GameObject.FindWithTag("Player").transform);
-        }
-        StartCoroutine(ShootRoutine());
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Check if there's a target and move towards it
-        if (target != null)
-        {
-            StartCoroutine(ShootRoutine());
-            MoveAroundTarget();
         }
     }
 
@@ -178,15 +202,6 @@ public class WormBuilder : MonoBehaviour
         }
     }
 
-
-    void MoveTowardsTarget()
-    {
-        // Calculate the direction towards the target
-        Vector3 direction = (target.position - transform.position).normalized;
-
-        // Move towards the target
-        transform.Translate(direction * moveSpeed * Time.deltaTime);
-    }
 
     
 

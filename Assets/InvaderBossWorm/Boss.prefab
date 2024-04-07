@@ -252,12 +252,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bodyCount: 10
-  templatePiece: {fileID: 6514116320441392630, guid: 62804179df8259a4a8ecbdc1290dc261,
-    type: 3}
+  templatePiece: {fileID: -7580568784188391906, guid: 895246035ee52bd4587427ede77967b7, type: 3}
   bodyParent: {fileID: 576257099607649611}
   rigParent: {fileID: 3398477191427135766}
-  bulletPrefab: {fileID: 4092872357349286730, guid: 5269dd52fdc50ea429c6b6a65cc1161e,
-    type: 3}
+  bulletPrefab: {fileID: 4092872357349286730, guid: 5269dd52fdc50ea429c6b6a65cc1161e, type: 3}
   firePoint: {fileID: 2750464189205983431}
   bulletSpeed: 2
   fireRate: 1.02
