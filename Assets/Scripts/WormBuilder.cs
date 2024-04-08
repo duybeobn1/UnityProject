@@ -44,7 +44,7 @@ public class WormBuilder : MonoBehaviour
 
     public GameObject healthBarPrefab; // Reference to the health bar prefab
     private GameObject healthBarInstance; // Instance of the health bar
-    
+
 
     
 
@@ -52,7 +52,6 @@ public class WormBuilder : MonoBehaviour
     void Start()
     {
         // Start the coroutine for automatic shooting
-
 
         if (Application.isPlaying)
         {
@@ -72,18 +71,12 @@ public class WormBuilder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Check if there's a target and move towards it
-        if (target != null)
-        {
-            if(ScoreManager.scoreCount >=5 )
-            {
-               StartCoroutine(ShootRoutine());
+        
+        StartCoroutine(ShootRoutine());
+        // Mettez ici toute la logique qui ne doit s'exécuter que lorsque le boss est actif
+        MoveAroundTarget();
 
-            }
-            MoveAroundTarget();
-        }
-
-        // Ensure the boss always stays at a minimum height of 50f
+        // Vérifiez et maintenez la hauteur minimale, etc.
         if (transform.position.y < 30f)
         {
             transform.position = new Vector3(transform.position.x, 30f, transform.position.z);
@@ -96,6 +89,12 @@ public class WormBuilder : MonoBehaviour
             ScoreManager.scoreCount += 100;
         }
     }
+
+    public void SetActiveState(bool state)
+    {
+        gameObject.SetActive(state);
+    }
+    
 
     public void takeDamage(int damage)
     {
