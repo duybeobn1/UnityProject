@@ -44,15 +44,11 @@ public class WormBuilder : MonoBehaviour
 
     public GameObject healthBarPrefab; // Reference to the health bar prefab
     private GameObject healthBarInstance; // Instance of the health bar
+    public GameObject explosionEffectPrefab; // Reference to the explosion effect prefab
 
 
-    
-
-    // Start is called before the first frame update
     void Start()
     {
-        // Start the coroutine for automatic shooting
-
         if (Application.isPlaying)
         {
             templateDamp = (new GameObject("Damp")).AddComponent<DampedTransform>();
@@ -68,25 +64,15 @@ public class WormBuilder : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         
         StartCoroutine(ShootRoutine());
-        // Mettez ici toute la logique qui ne doit s'exécuter que lorsque le boss est actif
         MoveAroundTarget();
 
-        // Vérifiez et maintenez la hauteur minimale, etc.
-        if (transform.position.y < 30f)
+        if (transform.position.y < 20f)
         {
-            transform.position = new Vector3(transform.position.x, 30f, transform.position.z);
-        }
-
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject);
-            Destroy(healthBarInstance);
-            ScoreManager.scoreCount += 100;
+            transform.position = new Vector3(transform.position.x, 20f, transform.position.z);
         }
     }
 
@@ -94,11 +80,20 @@ public class WormBuilder : MonoBehaviour
     {
         gameObject.SetActive(state);
     }
-    
+
 
     public void takeDamage(int damage)
     {
         currentHealth -= damage;
+        UpdateWormParts();
+
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+            // Optionally, destroy the health bar instance if it's not automatically destroyed with the GameObject.
+            if (healthBarInstance != null) Destroy(healthBarInstance);
+            ScoreManager.scoreCount += 100; // Assuming you want to increase the score when the boss is defeated
+        }
     }
     void OnEnable()
     {
@@ -109,6 +104,29 @@ public class WormBuilder : MonoBehaviour
             templateDamp.data.dampRotation = 0.7f;
             templateDamp.data.maintainAim = true;
             SetupWorm();
+        }
+    }
+
+    void UpdateWormParts()
+    {
+        int partsToRemain = currentHealth / 10;
+        partsToRemain = Mathf.Clamp(partsToRemain, 0, pieces.Count);
+
+        while (pieces.Count > partsToRemain)
+        {
+            WormPiece lastPiece = pieces[pieces.Count - 1];
+            if (lastPiece != null)
+            {
+                // Instantiate the explosion effect at the part's position before destroying it
+                if (explosionEffectPrefab != null)
+                {
+                    Instantiate(explosionEffectPrefab, lastPiece.gameObject.transform.position, Quaternion.identity);
+                }
+
+                if (lastPiece.damp != null) Destroy(lastPiece.damp.gameObject);
+                Destroy(lastPiece.gameObject);
+                pieces.RemoveAt(pieces.Count - 1);
+            }
         }
     }
 
@@ -194,21 +212,14 @@ public class WormBuilder : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, rotation);
 
         // Get the rigidbody of the bullet
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        Rigidbody rb = bullet.GetComponent<Rigidbody>();
 
         // Check if the bullet has a rigidbody
         if (rb != null)
         {
-            // Apply force in the direction of the rotation
             rb.velocity = bulletSpeed * direction.normalized;
-        }
-        else
-        {
-            Debug.LogWarning("Bullet prefab doesn't have a Rigidbody2D component.");
         }
     }
 
-
-    
 
 }

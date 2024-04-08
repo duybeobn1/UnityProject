@@ -10,15 +10,32 @@ public class simpleController : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     public float maxHealth = 100f;
     public float currentHealth;
-    private GameObject player; // Reference to the player object
-    public float attackRange = 30f; // Range within which the spider attacks
+    private GameObject player; 
+    public float attackRange = 30f; 
 
 
-    public GameObject healthBarPrefab; // Reference to the health bar prefab
-    private GameObject healthBarInstance; // Instance of the health bar
+    public GameObject healthBarPrefab; 
+    private GameObject healthBarInstance; 
+
+
+    private Renderer childRenderer; 
+    private Color originalColor;
+
+    public GameObject explosionEffectPrefab; 
 
     private void Start()
     {
+
+        childRenderer = GetComponentInChildren<Renderer>();
+        if (childRenderer != null)
+        {
+            originalColor = childRenderer.material.color;
+        }
+        else
+        {
+            Debug.Log("Renderer not found on any child objects.");
+        }
+
         StartCoroutine(RandomMovement());
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player");
@@ -27,20 +44,10 @@ public class simpleController : MonoBehaviour
     }
     private void Update()
     {
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject);
-            Destroy(healthBarInstance);
-            ScoreManager.scoreCount += 1;
-        }
         if (transform.position.y < -1f)
         {
-            // Destroy the spider
-
             Destroy(gameObject);
             Destroy(healthBarInstance);
-
-
         }
         else
         {
@@ -52,6 +59,26 @@ public class simpleController : MonoBehaviour
     public void takeDamage(int damage)
     {
         currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            if (explosionEffectPrefab != null)
+            {
+                Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+            }
+            Destroy(gameObject);
+            Destroy(healthBarInstance);
+            ScoreManager.scoreCount += 1;
+        }
+    }
+
+    private IEnumerator FlashRed()
+    {
+        if (childRenderer != null)
+        {
+            childRenderer.material.color = Color.red; 
+            yield return new WaitForSeconds(0.2f); 
+            childRenderer.material.color = originalColor; 
+        }
     }
 
 
@@ -61,10 +88,9 @@ public class simpleController : MonoBehaviour
         {
             if (player != null && Vector3.Distance(transform.position, player.transform.position) <= attackRange)
             {
-                // If player is within attack range, chase the player
                 Vector3 direction = player.transform.position - transform.position;
-                direction.y = 0; // Ensure spider doesn't move up or down
-                direction.Normalize(); // Normalize direction to maintain consistent speed
+                direction.y = 0; 
+                direction.Normalize(); 
 
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
                 Vector3 moveDir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
@@ -73,7 +99,6 @@ public class simpleController : MonoBehaviour
             }
             else
             {
-                // If player is not within attack range, perform random movement
                 Vector3 randomDirection = Random.insideUnitSphere;
                 randomDirection.y = 0;
                 randomDirection.Normalize();
