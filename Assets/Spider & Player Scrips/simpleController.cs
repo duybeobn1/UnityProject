@@ -59,7 +59,11 @@ public class simpleController : MonoBehaviour
     public void takeDamage(int damage)
     {
         currentHealth -= damage;
-        if (currentHealth <= 0)
+        if (currentHealth > 0)
+        {
+            StartCoroutine(FlashRed());
+        }
+        else if (currentHealth <= 0)
         {
             if (explosionEffectPrefab != null)
             {
@@ -76,7 +80,7 @@ public class simpleController : MonoBehaviour
         if (childRenderer != null)
         {
             childRenderer.material.color = Color.red; 
-            yield return new WaitForSeconds(0.2f); 
+            yield return new WaitForSeconds(0.3f); 
             childRenderer.material.color = originalColor; 
         }
     }

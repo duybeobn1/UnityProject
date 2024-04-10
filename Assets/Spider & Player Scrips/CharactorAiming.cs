@@ -9,6 +9,8 @@ public class CharactorAiming : MonoBehaviour
     public Rig aimLayer;
     Camera mainCamera;
     RayCastWeapon weapon;
+    [SerializeField] private AudioSource shootingAudioSource; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,10 @@ public class CharactorAiming : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit))
         {
+            if (shootingAudioSource != null && shootingAudioSource.clip != null)
+            {
+                shootingAudioSource.Play();
+            }
             if (ScoreManager.scoreCount < 5) { 
                 // Check if the hit object has a simpleController script (i.e., it's the spider)
                 simpleController spiderController = hit.collider.GetComponent<simpleController>();

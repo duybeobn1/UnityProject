@@ -36,5 +36,12 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log(currentHealth);
             TakeDamage(1);
         }
+
+        if (collision.gameObject.CompareTag("Rocket"))
+
+        {
+            Debug.Log(currentHealth);
+            TakeDamage(1);
+        }
     }
 }

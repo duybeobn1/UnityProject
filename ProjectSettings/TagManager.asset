@@ -8,6 +8,7 @@ TagManager:
   - Spider
   - Enemy
   - Boss
+  - Rocket
   layers:
   - Default
   - TransparentFX
