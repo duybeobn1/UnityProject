@@ -56,6 +56,8 @@ public class simpleController : MonoBehaviour
         }
     }
 
+    private bool hasExploded = false; // Add this line to your class variables
+
     public void takeDamage(int damage)
     {
         currentHealth -= damage;
@@ -63,14 +65,15 @@ public class simpleController : MonoBehaviour
         {
             StartCoroutine(FlashRed());
         }
-        else if (currentHealth <= 0)
+        else if (currentHealth <= 0 && !hasExploded)
         {
+            hasExploded = true; // Ensure explosion only happens once
             if (explosionEffectPrefab != null)
             {
                 Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
             }
             Destroy(gameObject);
-            Destroy(healthBarInstance);
+            if (healthBarInstance != null) Destroy(healthBarInstance); // Check for null to avoid errors
             ScoreManager.scoreCount += 1;
         }
     }

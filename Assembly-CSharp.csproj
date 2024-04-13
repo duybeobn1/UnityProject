@@ -69,6 +69,8 @@
     <Compile Include="Assets\UnityTechnologies\ParticlePack\Shared\Scripts\SimpleCameraController.cs" />
     <Compile Include="Assets\UnityTechnologies\ParticlePack\Shared\Scripts\SimpleCharacterMotor.cs" />
     <Compile Include="Assets\Scripts\HealthBarBoss.cs" />
+    <Compile Include="Assets\Scripts\Destroy.cs" />
+    <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Spider &amp; Player Scrips\ScoreManager.cs" />
     <Compile Include="Assets\BigRookGames\Scripts\Weapons\GunfireController.cs" />
     <Compile Include="Assets\Scripts\FalloffGenerator.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Assets\Scripts\TextureGenerator.cs" />
     <Compile Include="Assets\Spider &amp; Player Scrips\bodyController.cs" />
     <Compile Include="Assets\Scripts\Data\MeshSettings.cs" />
+    <Compile Include="Assets\Scripts\PlayerHealth.cs" />
     <Compile Include="Assets\Scripts\HeightMapGenerator.cs" />
     <Compile Include="Assets\Scripts\SpawnBoss.cs" />
     <Compile Include="Assets\UnityTechnologies\ParticlePack\EffectExamples\Misc Effects\Scripts\SpawnEffect.cs" />
@@ -100,10 +103,10 @@
     <Compile Include="Assets\UnityTechnologies\ParticlePack\Shared\Scripts\ProximityActivate.cs" />
     <Compile Include="Assets\Spider &amp; Player Scrips\HealthBar.cs" />
     <Compile Include="Assets\AQUAS-Lite\Scripts\AQUAS_Lite_CamNav.cs" />
-    <Compile Include="Assets\PlayerHealth.cs" />
     <Compile Include="Assets\Spider &amp; Player Scrips\SpiderGenerator.cs" />
     <Compile Include="Assets\Spider &amp; Player Scrips\LegAimGrounding.cs" />
     <Compile Include="Assets\Scripts\HealthBarPlayer.cs" />
+    <Compile Include="Assets\Scripts\GameOver.cs" />
     <Compile Include="Assets\UnityTechnologies\ParticlePack\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\ProgressBar\Scene\Demo.cs" />
   </ItemGroup>

@@ -19,7 +19,7 @@ public class SpawnBoss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ScoreManager.scoreCount >= 1)
+        if (ScoreManager.scoreCount >= 5)
         {
             boss.SetActive(true); // Active le boss et ses fonctionnalités
             healthbar.SetActive(true);

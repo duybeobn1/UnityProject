@@ -48,7 +48,6 @@ public class CharactorAiming : MonoBehaviour
                 WormBuilder boss = hit.collider.GetComponent<WormBuilder>();
                 if (boss != null)
                 {
-
                     boss.takeDamage(1);
                 }
             }
@@ -57,15 +56,14 @@ public class CharactorAiming : MonoBehaviour
                 WormBuilder boss = hit.collider.GetComponent<WormBuilder>();
                 if (boss != null)
                 {
-
-                    boss.takeDamage(100);
+                    boss.takeDamage(5);
                 }
                 simpleController spiderController = hit.collider.GetComponent<simpleController>();
 
                 if (spiderController != null)
                 {
                     // Reduce spider's health
-                    spiderController.takeDamage(100); // Assuming 1 damage per hit
+                    spiderController.takeDamage(5); // Assuming 1 damage per hit
                 }
             }
             

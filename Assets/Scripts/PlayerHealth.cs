@@ -6,6 +6,8 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;
+
+    public GameOver go;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +20,7 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("Die");
+            go.Setup();
             Destroy(gameObject);
         }
     }
@@ -34,14 +37,14 @@ public class PlayerHealth : MonoBehaviour
 
         {
             Debug.Log(currentHealth);
-            TakeDamage(1);
+            TakeDamage(5);
         }
 
         if (collision.gameObject.CompareTag("Rocket"))
 
         {
             Debug.Log(currentHealth);
-            TakeDamage(1);
+            TakeDamage(10);
         }
     }
 }
