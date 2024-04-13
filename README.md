@@ -1,5 +1,5 @@
 
-# Titre du Projet : Animation et Génération de Cartes Procédurales dans Unity
+# Animation et Génération de Cartes Procédurales dans Unity
 
 ## Aperçu
 Ce projet démontre l'application des techniques d'animation procédurale et de génération de cartes procédurales au sein de Unity pour créer des animations dynamiques, réactives et des environnements de jeu variés et immersifs. Le projet couvre plusieurs aspects de l'animation procédurale et de la génération de terrains, depuis les mouvements humains de base jusqu'aux comportements de créatures complexes et la création automatique de cartes.
