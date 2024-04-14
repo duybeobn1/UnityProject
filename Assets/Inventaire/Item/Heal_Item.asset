@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af7009a821142944a836ffab0d67631c, type: 3}
+  m_Name: Heal_Item
+  m_EditorClassIdentifier: 
+  nameI: Heal Potion
+  descriptionI: Heal 20 hp. Press H to heal.
+  visual: {fileID: 21300000, guid: 3829c13dada4640fea96ae4e1f5bcb68, type: 3}
+  prefab: {fileID: 7758715729755236875, guid: 9781d470c0814544ea0545783333035d, type: 3}
+  health: 20

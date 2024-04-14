@@ -47,4 +47,12 @@ public class PlayerHealth : MonoBehaviour
             TakeDamage(10);
         }
     }
+    public void Heal(int amount)
+    {
+        currentHealth = currentHealth +amount;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
 }

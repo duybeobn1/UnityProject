@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Boss
   - Rocket
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - playerLayer
   - Water
   - UI
-  - 
+  - item
   - 
   - 
   - 
