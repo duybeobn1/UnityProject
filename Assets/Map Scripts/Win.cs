@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameOver : MonoBehaviour
+public class Win : MonoBehaviour
 {
     public Text pointsText;
     public static int score;
@@ -32,5 +32,12 @@ public class GameOver : MonoBehaviour
     {
     	ScoreManager.scoreCount = 0;
         SceneManager.LoadScene("Main Menu");
+    }
+    
+    public void ContinueButton()
+    {
+    	gameObject.SetActive(false);
+    	Cursor.visible = true;
+    	Cursor.lockState = CursorLockMode.Locked;
     }
 }

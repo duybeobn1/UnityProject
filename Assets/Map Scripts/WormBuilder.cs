@@ -46,6 +46,8 @@ public class WormBuilder : MonoBehaviour
     private GameObject healthBarInstance; // Instance of the health bar
     public GameObject explosionEffectPrefab; // Reference to the explosion effect prefab
 
+    public Win win;
+
 
     void Start()
     {
@@ -89,10 +91,11 @@ public class WormBuilder : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
             // Optionally, destroy the health bar instance if it's not automatically destroyed with the GameObject.
             if (healthBarInstance != null) Destroy(healthBarInstance);
             ScoreManager.scoreCount += 100; // Assuming you want to increase the score when the boss is defeated
+            win.Setup();
+            Destroy(gameObject);
         }
     }
     void OnEnable()
